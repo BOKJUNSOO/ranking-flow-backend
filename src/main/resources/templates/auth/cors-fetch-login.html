@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CORS Fetch Login</title>
+</head>
+<body>
+<h1>CORS Fetch Login</h1>
+<input type="text" id="username" placeholder="Username" />
+<input type="password" id="password" placeholder="Password" />
+<button onclick="login()">Login</button>
+
+<script>
+  function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    fetch('http://localhost:8080/auth/cors/fetch/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `username=${username}&password=${password}`,
+      credentials: "include" // CORS 상황에서 쿠키를 주고받을 수 있음
+    })
+    .then(response => response.text())
+    .then(data => {
+      if (data === 'success') {
+        window.location.href = 'http://localhost:8080/auth/main';
+      } else {
+        alert('Login Failed');
+      }
+    });
+  }
+</script>
+</body>
+</html>

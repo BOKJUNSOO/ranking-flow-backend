@@ -1,0 +1,20 @@
+<div th:if="(${session.user} != null)">
+  <p th:text="${session.user.userId} + '님 반갑습니다.'"></p>
+  <!-- 객체처럼 접근!-->
+  <p th:text="${session.dates}"></p>
+  <button onclick="logout()">로그아웃</button>
+  <script>
+    const logout = () => {
+      const selected = confirm('로그아웃?');
+      if (selected) {
+          // 브라우저가 제공하는 기본 객체
+          // console.log(location.href);
+          location = "/logout"; // 클릭시 호출
+      }
+    }
+  </script>
+</div>
+
+<p th:unless="${session.user} != null">
+  로그인되어 있지 않습니다.
+</p>
