@@ -23,4 +23,9 @@ public interface UserExpRepository
     
     // 검색결과를 보여주는 컨트롤러에서 characterName 을 포함하는 모든 값을 리턴
     // List<userExp> findBycharacterNameContaining(String charcterName);
+    @Query(value= """
+    SELECT * FROM user_exp_agg_df
+    WHERE character_level = 300
+    """, nativeQuery = true)
+    List<userExp> findLegend();
 }

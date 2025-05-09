@@ -35,7 +35,7 @@ public class MainController {
     }
 
     @CrossOrigin()
-    @GetMapping(value = "/myapi", produces = "application/json; charset=UTF-8")
+    @GetMapping(value = "/datetopten", produces = "application/json; charset=UTF-8")
     // 직접 엔티티를 멤버변수로 갖는 방식 -> 순환참조의 위험성 -> DTO 사용의 필수!!
     public List<userExp> home() {
         String targetDate = getValidDate();
@@ -44,16 +44,17 @@ public class MainController {
     }
 
     @CrossOrigin()
+    @GetMapping(value = "/legend", produces = "application/json; charset=UTF-8")
+    public List<userExp> legend() {
+        return userExpRepository.findLegend();
+    }
+
+    @CrossOrigin()
     @GetMapping(value = "/result/{keyword}", produces = "application/json; charset=UTF-8")
-    publicx List<Map<String, Object>> searchUser(@PathVariable("keyword") String keyword) {
+    public List<Map<String, Object>> searchUser(@PathVariable("keyword") String keyword) {
         String targetDate = getValidDate();
 
         String sql = "SELECT * FROM user_exp_agg_df WHERE character_name = ? AND date = ?";
         return jdbcTemplate.queryForList(sql, keyword, targetDate);
     }
-
-//    @CrossOrigin
-//    @GetMapping(value = "/list")
-//    public List<>
-
 }
